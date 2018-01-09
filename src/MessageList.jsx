@@ -7,15 +7,18 @@ class MessageList extends Component {
   }
   render() {
   console.log("Rendering <MessageList />");
-  let messages = this.props.messages.map(message => {
-    return (
-      <Message key={message.id} content={message.content} type={message.type} />
-    )});
-    return (
+  return (
       <main className="messages">
-        {messages}
+        {this.props.messages.map(message => (
+          <Message
+            key={message.id}
+            content={message.content}
+            username={message.username}
+            type={message.type} />
+        ))}
       </main>
-    );
-  }
+    ) //return bracket
+  } //bracket for render
+
 }
 export default MessageList;
