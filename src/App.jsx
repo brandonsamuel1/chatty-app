@@ -44,11 +44,17 @@ class App extends Component {
 
     this.webSockets = new WebSocket("ws://localhost:3001/");
     this.webSockets.onopen = (event) => {
-      console.log('Connected to server')
+      console.log('Connected to server');
+      console.log('Online users: ', event);
+      const onlineUserCount = JSON.stringify(event);
+      this.setState({
+        counter: onlineUserCount.count
+      });
     }
     this.webSockets.onmessage = (event) => {
       console.log('Websocket Event Received:', event);
       const data = JSON.parse(event.data);
+      console.log('data: ', data);
       switch(data.type) {
         case "chat":
           this.setState({
@@ -58,8 +64,15 @@ class App extends Component {
         case "system":
           this.createNotification(data.type, data.content, data.username)
           break;
+
+        case "newUser":
+          this.setState({
+            counter: data.count
+          });
+          break;
+
         default:
-          throw new Error('Unknown event type ' + data.type);
+          throw new Error('Unknown event type ' + event.data);
       }
       console.log('Received message from server')
     }
@@ -67,11 +80,11 @@ class App extends Component {
     setTimeout(() => {
       console.log("Simulating incoming message");
 
-      const newMessage = {id: 3, username: "Michelle", content: "Hello there!", type: "chat"};
+      const newMessage = {id: 3, username: "Jesus Christ", content: "Welcome to the chat room!", type: "chat"};
       const messages = this.state.messages.concat(newMessage)
 
       this.setState({messages: messages})
-    }, 3000);
+    }, 2000);
   }
 
   addChatMessage(content) {
@@ -93,7 +106,7 @@ class App extends Component {
     return (
       <div>
         <nav className="navbar">
-          <a href="/" className="navbar-brand">Chatty</a>
+          <a href="/" className="navbar-brand">Chatty</a><span>Online Users: {this.state.counter}</span>
         </nav>
         <MessageList messages={this.state.messages} />
         <ChatBar username={this.state.currentUser.name} addChatMessage={this.addChatMessage.bind(this)} changeUserName={this.changeUserName.bind(this)} />
