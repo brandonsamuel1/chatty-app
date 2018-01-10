@@ -12,6 +12,18 @@ class App extends Component {
     }
   }
 
+  changeUserName = (newName) => {
+    let oldName = this.state.currentUser.name;
+    this.setState({currentUser: {name: newName}});
+    let content = oldName + " changed their name to " + newName;
+    console.log(content)
+
+    const newMessage = {
+      type: "system",
+      content: content
+    };
+    this.webSockets.send(JSON.stringify(newMessage))
+  }
 
   componentDidMount() {
     console.log("componentDidMount <App />");
@@ -38,7 +50,8 @@ class App extends Component {
     }, 3000);
   }
 
-  addMessage(content) {
+  addChatMessage(content) {
+    console.log("sending as", this.state.currentUser.name);
     const newMessage = {
       id: Math.random(),
       type: "chat",
@@ -59,7 +72,7 @@ class App extends Component {
           <a href="/" className="navbar-brand">Chatty</a>
         </nav>
         <MessageList messages={this.state.messages} />
-        <ChatBar username={this.state.currentUser.name} addMessage={this.addMessage.bind(this)} />
+        <ChatBar username={this.state.currentUser.name} addChatMessage={this.addChatMessage.bind(this)} changeUserName={this.changeUserName.bind(this)} />
       </div>
     );
   }
