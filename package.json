@@ -47,6 +47,8 @@
   "dependencies": {
     "react": "15.4.2",
     "react-dom": "15.4.2",
+    "react-notification-system": "^0.2.16",
+    "react-notifications": "^1.4.3",
     "uuid": "^3.1.0"
   }
 }
