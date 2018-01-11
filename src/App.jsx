@@ -9,7 +9,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: {name: "Bob"},
+      currentUser: {name: "Anonymous"},
       messages: [],
       notification: null
     }
@@ -80,7 +80,7 @@ class App extends Component {
     setTimeout(() => {
       console.log("Simulating incoming message");
 
-      const newMessage = {id: 3, username: "Jesus Christ", content: "Welcome to the chat room!", type: "chat"};
+      const newMessage = {id: 3, username: "Ironman", content: "Welcome to the chat room Avengers!", type: "chat"};
       const messages = this.state.messages.concat(newMessage)
 
       this.setState({messages: messages})
@@ -106,7 +106,7 @@ class App extends Component {
     return (
       <div>
         <nav className="navbar">
-          <a href="/" className="navbar-brand">Chatty</a><span className="user-count">Online Users: {this.state.counter} </span>
+          <a href="/" className="navbar-brand">Marvels Chatty</a><span className="user-count">Online Users: {this.state.counter} </span>
         </nav>
         <MessageList messages={this.state.messages} />
         <ChatBar username={this.state.currentUser.name} addChatMessage={this.addChatMessage.bind(this)} changeUserName={this.changeUserName.bind(this)} />
