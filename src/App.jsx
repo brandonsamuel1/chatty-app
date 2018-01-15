@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import ChatBar from './ChatBar.jsx';
 import MessageList from './MessageList.jsx';
-//import NotificationSystem from '../node_modules/react-notification-system/src/NotificationSystem.jsx'
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 class App extends Component {

@@ -9,6 +9,7 @@ class ChatBar extends Component {
     this.changeUserName = this.changeUserName.bind(this);
   }
 
+
   changeUserName(event) {
     this.setState(
       {currentUser: event.target.value},
