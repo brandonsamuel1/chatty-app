@@ -51,7 +51,7 @@ wss.on('connection', (ws) => {
     console.log('message received:', message);
     wss.broadcast(message);
   });
-
+  ws.on('error', () => {});
   ws.on('close', () => {
     console.log('Client disconnected')
     const userCount = wss.countUser(wss.clients.size);
